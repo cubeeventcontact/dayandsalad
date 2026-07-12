@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DAY_AND Salad · 공개본 미리보기</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"/>
+<link rel="stylesheet" href="css/style.css?v=24"/>
+</head>
+<body>
+<div class="phone">
+
+  <!-- ========== 스플래시(로딩) : 그린 배경 + 로고, pop-in 후 페이드아웃 (순수 CSS) ========== -->
+  <div id="splash"><img src="assets/logo/logo.svg" alt="DAY_AND Salad"></div>
+
+  <!-- ========== 화면 1: 홈 (5인 동등 라인업) ========== -->
+  <div class="screen active" id="home">
+    <div class="topbar">
+      <h1><img src="assets/logo/logo.svg" alt="DAY_AND Salad"></h1>
+      <div class="search hidden">🔍 먹고 싶은 샐러드를 찾아보세요</div>
+    </div>
+
+    <!-- 스크롤 본문: 일관된 간격 시스템(한 방향 마진)으로 관리 -->
+    <div class="home-content">
+
+    <!-- 컴백 배너 (단일) — 이미지 넣을 때: background 를 url('assets/banner/banner.png') center/cover 로 교체 -->
+    <div class="banner-wrap">
+      <a class="slide" href="https://twitter.com/CUBE_NOWZ" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#50ae68,#3e8c52)">
+        <div class="cap">제철 나우즈 새벽 배송 예정</div>
+      </a>
+    </div>
+
+    <!-- 주문하기 CTA → 메뉴 리스트 페이지로 전환 -->
+    <div class="order-cta" onclick="go('menu')">
+      <h3>맞춤 샐러드 주문하기</h3>
+      <p>나에게 딱 맞는 제철 샐러드 메뉴를 만나보세요</p>
+    </div>
+
+    <!-- 5인 동등 라인업 (모두 같은 크기, 특정 멤버 강조 없음) -->
+    <div class="sec-title">
+      <h3>[NOWZ (나우즈)] 시그니처 메뉴 5종</h3>
+      <span onclick="go('menu')" style="cursor:pointer">전체보기 ›</span>
+    </div>
+    <div id="homeLineup" class="lineup"></div>
+
+    <!-- 하단 채움 (모두 그룹 단위 콘텐츠) -->
+
+    <!-- 컴백 안내 카드 -->
+    <div class="sec-title"><h3>[AD] DAY_AND Salad NEWS</h3></div>
+    <div class="home-news">
+      <div class="dday"><img src="assets/icons/fandom_logo.svg" alt="NOWZ"></div>
+      <div class="news-body">
+        <h4>COMEBACK,<br />Delivery on progress…</h4>
+        <p>나우즈의 신선한 컴백이 내 집 앞으로</p>
+      </div>
+    </div>
+
+    <!-- 공식 채널 -->
+    <div class="link-row">
+      <a class="link-chip" href="https://www.youtube.com/@CUBE_NOWZ" target="_blank" rel="noopener">Youtube</a>
+      <a class="link-chip" href="https://twitter.com/CUBE_NOWZ" target="_blank" rel="noopener">X</a>
+      <a class="link-chip" href="https://www.instagram.com/nowz_official/" target="_blank" rel="noopener">Instagram</a>
+      <a class="link-chip" href="https://berriz.in/nowz/" target="_blank" rel="noopener">Berriz</a>
+    </div>
+
+    <!-- 공유하기 버튼: 프로모션 문구 + 링크를 클립보드에 복사 -->
+    <div class="full-cta" onclick="sharePromo()">DAY_AND Salad 함께 주문하기</div>
+
+    </div><!-- /.home-content -->
+  </div>
+
+  <!-- ========== 화면 1-2: 메뉴 리스트 페이지 (전체보기 = 5종 전체) ========== -->
+  <div class="screen" id="menu">
+    <div class="topbar" style="display:flex;align-items:center;gap:10px;text-align:left;">
+      <button class="back-btn" style="position:static;background:rgba(255,255,255,.2);color:#fff;flex:0 0 38px;" onclick="go('home')">←</button>
+      <div>
+        <h1 style="font-size:18px;">메뉴 전체보기</h1>
+      </div>
+    </div>
+
+    <!-- 광고 배너 → 유튜브 링크 (ad.png 우선, 없으면 ad.jpg) · img로 넣어 상하 여백/잘림 없이 정확히 맞춤 -->
+    <a class="ad-banner" id="menuAd" href="https://youtu.be/BSLs3MwTOpk" target="_blank" rel="noopener">
+      <img src="assets/ad/ad.png" onerror="this.onerror=null;this.src='assets/ad/ad.jpg'" alt="DAY_AND Salad 광고">
+    </a>
+
+    <div class="sec-title">
+      <h3>이번 시즌 신메뉴</h3>
+      <span>5 MENU</span>
+    </div>
+    <div class="menu-list" id="menuList"></div>
+  </div>
+
+  <!-- ========== 화면 2: 상세 ========== -->
+  <div class="screen" id="detail">
+    <!-- 상단 고정 뒤로가기 바: 이미지 위에선 투명, 스크롤하면 흰 배경으로 페이드인 -->
+    <div class="detail-topbar" id="detailTopbar">
+      <button class="back-btn" onclick="go(detailFrom)">←</button>
+      <span class="dt-title" id="detailTopTitle"></span>
+    </div>
+    <div class="detail-scroll" id="detailScroll">
+      <div class="detail-hero" id="detailHero"></div>
+      <div class="detail-body" id="detailBody"></div>
+    </div>
+    <div class="order-bar">
+      <button class="btn" onclick="openOrder()">주문하기</button>
+    </div>
+  </div>
+
+  <!-- ========== 화면 3: 배달 추적 ========== -->
+  <div class="screen" id="track">
+
+    <!-- 주문 전: 빈 상태 -->
+    <div class="empty-state" id="trackEmpty">
+      <div class="emoji"><img src="assets/icons/delivery.svg" alt=""></div>
+      <h3>아직 진행 중인 주문이 없어요</h3>
+      <p>메뉴를 주문하면 이곳에서<br>배달 현황을 확인할 수 있어요.</p>
+      <button class="btn-inline" onclick="go('menu')">메뉴 보러가기</button>
+    </div>
+
+    <!-- 주문 후: 배달 추적 연출 -->
+    <div id="trackFilled" class="hidden">
+      <div class="track-head">
+        <div class="eyebrow">DELIVERY TRACKING</div>
+        <h2>주문이 접수됐어요</h2>
+      </div>
+      <div id="map"></div>
+      <div class="eta-card">
+        <div class="eta-row"><span class="k">받는 분</span><span class="v" id="tName">-</span></div>
+        <div class="eta-row"><span class="k">배달 주소</span><span class="v" id="tAddr">네 마음 속 ~ ♡</span></div>
+        <div class="eta-row"><span class="k">조리 시작</span><span class="v">NOW</span></div>
+        <div class="eta-row"><span class="k">배달 예정 시간</span><span class="v hl">???</span></div>
+        <div class="eta-row"><span class="k">도착 예정 시간</span><span class="v hl" id="tEta">Coming Soon</span></div>
+      </div>
+      <div class="progress">
+        <div class="step done"><div class="dot">✓</div>주문접수</div>
+        <div class="step done"><div class="bar"></div><div class="dot">✓</div>조리중</div>
+        <div class="step"><div class="bar"></div><div class="dot"><img src="assets/icons/delivery.svg" alt=""></div>배달중</div>
+        <div class="step"><div class="bar"></div><div class="dot"><img src="assets/icons/home.svg" alt=""></div>도착</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 주문 폼 모달 ========== -->
+  <div class="modal-bg" id="orderModal">
+    <div class="sheet">
+      <div class="grip"></div>
+      <h3 id="orderTitle">배송정보</h3>
+      <p class="sub">입력하신 성명 및 연락처는 본 프로모션 운영 및 안내를 위하여 수집·이용되며, 프로모션 종료 후 즉시 파기됩니다. 귀하는 개인정보 수집·이용에 대한 동의를 거부할 권리가 있으나, 동의하지 않을 경우 <b>본 프로모션 참여가 제한될 수 있습니다.</b></p>
+
+      <div class="field">
+        <label>받는 분 <em>필수</em></label>
+        <input id="fName" placeholder="예) 데이앤">
+      </div>
+      <div class="field">
+        <label>연락처 <span class="opt">선택</span></label>
+        <input id="fPhone" placeholder="010-0000-0000" inputmode="tel">
+      </div>
+      <div class="field">
+        <label>배달 주소</label>
+        <input id="fAddr" value="네 마음 속 ~ ♡" readonly>
+      </div>
+      <div class="field">
+        <label>요청사항 <span class="opt">선택</span></label>
+        <textarea id="fMsg" rows="2" placeholder="요청사항을 남겨주세요"></textarea>
+      </div>
+      <label class="consent">
+        <input type="checkbox" id="fConsent">
+        <span>개인정보 수집·이용에 동의합니다. (수집항목: 성명, 연락처 / 이용목적: 본 프로모션 운영 및 안내 / 보유·이용기간: 프로모션 종료 후 즉시 파기)</span>
+      </label>
+      <button class="btn" onclick="submitOrder()">주문 완료하기</button>
+    </div>
+  </div>
+
+  <!-- ========== 하단 탭바 ========== -->
+  <div class="tabbar">
+    <button class="tab on" onclick="go('home')"><span class="ti"><img src="assets/icons/home.svg" alt=""></span>홈</button>
+    <button class="tab" onclick="go('track')"><span class="ti"><img src="assets/icons/delivery.svg" alt=""></span>배달현황</button>
+  </div>
+
+</div>
+
+<!-- ★ 미리보기 전용 : 시간·호스트와 무관하게 '공개본(open 이미지)'을 강제로 표시 ★
+     (실제 배포는 index.html 을 사용. 이 파일은 공개 이미지 확인용이며, 공개 전 공개서버에 올리지 마세요) -->
+<script>window.FORCE_REVEAL = true;</script>
+
+<!-- 데이터 → 로직 순서로 로드 (?v= : 파일 수정 시 숫자만 올리면 캐시 갱신) -->
+<script src="js/menu-data.js?v=10"></script>
+<script src="js/app.js?v=17"></script>
+</body>
+</html>
