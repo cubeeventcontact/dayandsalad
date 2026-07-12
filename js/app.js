@@ -236,9 +236,9 @@ function submitOrder(){
 
 /* ===== 공유하기 (프로모션 문구 + 링크 클립보드 복사) ===== */
 // ▼ 공유 문구는 여기서 수정하세요
-const SHARE_TEXT = '#나우즈가 데이앤을 위해 준비한 특별한 샐러드';
-// 배포 후엔 실제 도메인이 자동으로 들어갑니다. 특정 URL 로 고정하려면 직접 입력하세요.
-const PROMO_URL = location.origin + location.pathname;
+const SHARE_TEXT = '인생 샐러드를 찾고 있다면? 지금이 바로 기회, #나우즈 하자!';
+// ▼ 공유 시 함께 붙는 링크 (프로모션 도메인으로 고정)
+const PROMO_URL = 'https://dayandsalad.com';
 
 function sharePromo(){
   const text = `${SHARE_TEXT}\n${PROMO_URL}`;
