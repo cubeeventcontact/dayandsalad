@@ -56,7 +56,7 @@ const MENU = [
     grad:"linear-gradient(135deg,#50ae68,#3e8c52)", badge:"NEW signature",
     desc:"한입 만에 입덕 가능한 시그니처 메뉴",
     long:"한입 만에 입덕 가능한 시그니처 메뉴. 지방 5% 함유로, 황금 밸런스와 비주얼을 자랑하는 셰프의 필살기입니다.",
-    kcal:"804", protein:"402", time:"1분",
+    kcal:"824", protein:"402", time:"1분",
     ing:["Protein","Omega-3","Caffeine"],
     caution:"달콤한 비주얼이 혈당 스파이크를 유발할 수 있습니다." },
 ];
